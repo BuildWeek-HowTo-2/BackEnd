@@ -1,0 +1,36 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Backend for Howto Creator",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "server": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BuildWeek-HowTo-2/BackEnd.git"
+  },
+  "author": "Harrison Seaborn & Jake Johnson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BuildWeek-HowTo-2/BackEnd/issues"
+  },
+  "homepage": "https://github.com/BuildWeek-HowTo-2/BackEnd#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "helmet": "^3.22.0",
+    "jest": "^25.4.0",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^0.21.0",
+    "knex-cleaner": "^1.3.0",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.3",
+    "remove": "^0.1.5",
+    "sqlite3": "^4.1.1",
+    "supertest": "^4.0.2"
+  }
+}
