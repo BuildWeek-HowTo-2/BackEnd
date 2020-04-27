@@ -1,7 +1,8 @@
 ## API Documentation
 <div id="top"></div>
 
-**BASE URL** TBD
+**BASE URL**  https://how2s.herokuapp.com
+
 - Attach endpoints to the end of the base URL in order to make HTTP Requests.
 
 ### Table of Contents
@@ -22,7 +23,7 @@ Endpoints that do _**not**_ require authentication (Not Protected):
 
 <a href="#top">Return to the top</a>
 
-URL: /api/user/register
+URL: https://how2s.herokuapp.com/api/user/register
 
 ### Request body should include: 
 | Input (Case Sensitive)           | Input Type          |
@@ -61,7 +62,7 @@ _You will receive the user object an a JWT._
 
 <a href="#top">Return to the top</a>
 
-URL: /api/user/login
+URL: https://how2s.herokuapp.com/api/user/login
 
 ### Request body should include: 
 | Input (Case Sensitive)           | Input Type          |
@@ -98,7 +99,7 @@ _You will receive the user object an a JWT._
 
 <a href="#top">Return to the top</a>
 
-URL: /api/instructor/register
+URL: https://how2s.herokuapp.com/api/instructor/register
 
 ### Request body should include: 
 | Input (Case Sensitive)           | Input Type          |
@@ -137,7 +138,7 @@ _You will receive the user object an a JWT._
 
 <a href="#top">Return to the top</a>
 
-URL: /api/instructor/login
+URL: https://how2s.herokuapp.com/api/instructor/login
 
 ### Request body should include: 
 | Input (Case Sensitive)           | Input Type          |
