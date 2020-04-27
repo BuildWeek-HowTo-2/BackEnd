@@ -1,16 +1,15 @@
 const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const Users = require('./userModel.js')
+const Instructors = require('./instructorsModel')
 const  validateUser  = require('../utils/validateUser');
-
 
 router.post('/register', validateUser, (req, res) => {
   const userData = req.body;
   console.log('userdata in register',userData)
   const hash = bcrypt.hashSync(userData.password, 8);
   userData.password = hash;
-  Users.insert(userData)
+  Instructors.insert(userData)
   .then(saved => {
     console.log('saved user data on insert',saved)
     res.status(201).json(userData)
@@ -20,9 +19,10 @@ router.post('/register', validateUser, (req, res) => {
   })
 })
 
+
 router.post('/login', (req, res) => {
   const { username, password } = req.body;
-  Users.getBy({username})
+  Instructors.getBy({username})
   .first()
   .then(user => {
     console.log('user in login', user)
@@ -42,13 +42,12 @@ router.post('/login', (req, res) => {
   })
 })
 
-
 function generateToken(user) {
     
   const payload = {
       subject: user.id,
       username: user.username,
-      role: "user" 
+      role: "instructor" 
   };
   
   const secret = process.env.JWT_SECRET || "is it secret? is it safe?";

@@ -4,6 +4,7 @@
   "description": "Backend for Howto Creator",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "server": "nodemon index.js"
   },
   "repository": {
@@ -17,7 +18,6 @@
   },
   "homepage": "https://github.com/BuildWeek-HowTo-2/BackEnd#readme",
   "dependencies": {
-    "bcrypt": "^4.0.1",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
