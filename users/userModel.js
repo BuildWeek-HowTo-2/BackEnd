@@ -31,10 +31,14 @@ function getById(id) {
 }
 
 function getBy(filter) {
-    return db('users')
-        .where(Object.keys(filter)[0], 'like', '%' + Object.values(filter)[0] + '%')
-        .select('id', 'username',);
+  return db('users').where(filter)
 }
+
+// function getBy(filter) {
+//     return db('users')
+//         .where(Object.keys(filter)[0], 'like', '%' + Object.values(filter)[0] + '%')
+//         .select('id', 'username',);
+// }
 
 //for login
 function getByWithPassword(filter) {

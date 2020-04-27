@@ -23,12 +23,14 @@ function get() {
 function getById(id) {
     return db('instructors').where({ id }).select('id', 'username',).first();
 }
-
 function getBy(filter) {
-    return db('instructors')
-        .where(Object.keys(filter)[0], 'like', '%' + Object.values(filter)[0] + '%')
-        .select('id', 'username',);
+	return db('instructors').where(filter);
 }
+// function getBy(filter) {
+//     return db('instructors')
+//         .where(Object.keys(filter)[0], 'like', '%' + Object.values(filter)[0] + '%')
+//         .select('id', 'username',);
+// }
 
 //for login
 function getByWithPassword(filter) {
