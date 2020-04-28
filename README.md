@@ -10,10 +10,10 @@ Endpoints that do _**not**_ require authentication (Not Protected):
 
 | Requests        | Endpoints          | Description
 |-----------------|--------------------|--------------------|
-|<a href="#userRegister">POST User Registration</a>  | /api/user/register | <b>POST</b> request to register new user
-|<a href="#userLogin">POST User Login</a>            | /api/user/login|  <b>POST</b> request to login new user
-|<a href="#instructorRegister">POST Instructor Registration</a>  | /api/instructor/register | <b>POST</b> request to register new instructor
-|<a href="#instructorLogin">POST Instructor Login</a>            | /api/instructor/login|  <b>POST</b> request to login new instructor
+|<a href="#userRegister">POST Users Registration</a>  | /api/users/register | <b>POST</b> request to register new user
+|<a href="#userLogin">POST Users Login</a>            | /api/users/login|  <b>POST</b> request to login new user
+|<a href="#instructorRegister">POST Instructors Registration</a>  | /api/instructors/register | <b>POST</b> request to register new instructor
+|<a href="#instructorLogin">POST Instructors Login</a>            | /api/instructors/login|  <b>POST</b> request to login new instructor
 
 <hr />
 
@@ -23,7 +23,7 @@ Endpoints that do _**not**_ require authentication (Not Protected):
 
 <a href="#top">Return to the top</a>
 
-URL: https://how2s.herokuapp.com/api/user/register
+URL: https://how2s.herokuapp.com/api/users/register
 
 ### Request body should include: 
 | Input (Case Sensitive)           | Input Type          |
