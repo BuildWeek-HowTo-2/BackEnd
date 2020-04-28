@@ -11,8 +11,12 @@ router.post('/register', validateUser, (req, res) => {
   userData.password = hash;
   Instructors.insert(userData)
   .then(saved => {
-    console.log('saved user data on insert',saved)
-    res.status(201).json(userData)
+    const token = generateToken(saved);
+    res.status(200).json({
+      
+      message: `Welcome ${saved.username}! Here is a token...`,
+      token
+  });
   })
   .catch((err) => {
     res.status(500).json(err)

@@ -4,11 +4,12 @@ module.exports = {
   get,
   getBy,
   getById,
-  findById
+  findById,
+  getDirectionsById
 }
 
 function get() {
-  return db('tutorials')
+  return db('tutorials').orderBy('likes', 'desc')
 }
 
 function getBy(filter) {
@@ -26,4 +27,11 @@ function findById(id) {
     .join('instructors as i', 't.instructor_id', 'i.id')
     .where('i.id', id)
    
+}
+
+function getDirectionsById(id) {
+  return db('tutorial_directions as td')
+    .select('td.step_number', 'td.instructions')
+    .join('tutorials as t', 't.id', 'tutorial_id')
+    .where('t.id', id)
 }
