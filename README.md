@@ -19,7 +19,7 @@ Endpoints that do _**not**_ require authentication (Not Protected):
 ### Instructor Endpoints
 | Requests        | Endpoints          | Description
 |-----------------|--------------------|--------------------|
-|<a href="#getTutorialById">POST Users Registration</a>  | /api/tutorials/:id | <b>GET</b> request to retrieve all turoials by instructor_id
+|<a href="#getTutorialById">GET tutorials by instructor_id</a>  | /api/tutorials/:id | <b>GET</b> request to retrieve all turoials by instructor_id
 
 ### User Endpoints 
 | Requests        | Endpoints          | Description
