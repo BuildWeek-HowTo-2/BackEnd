@@ -1,3 +1,4 @@
+
 const router = require('express').Router();
 
 const tutorials = require('./tutorialsModel');
@@ -46,5 +47,36 @@ router.get('/:id/directions', (req, res) => {
     });
   })
 
+router.post('/', (req, res) => {
+  const tutorialData =  req.body;
+  const { id } = req.params;
+  tutorials.insert(tutorialData)
+  .then((tutorial) => {
+    res.status(201).json(tutorial)
+  })
+})
 
+router.put('/:id', (req, res) => {
+  const tutorialData = req.body;
+  const { id } = req.params;
+  tutorials.update(id, tutorialData)
+  .then((count) => {
+    if (count > 0) {
+      tutorials.getTutorialById(id)
+      .then((post) => {
+        res.status(200).json(post)
+      })
+    }
+  })
+})
+
+// router.get('/', (req, res) => {
+//   tutorials.get()
+//   .then((tutorials) => {
+//     res.status(200).json(tutorials)
+//   })
+//   .catch((err) => {
+//     errorHandler(res, err, 500, 'Unable to retrieve tutorials');
+//   });
+// });
 module.exports = router;
