@@ -148,7 +148,7 @@ _You will receive the user object an a JWT._
 
 <hr />
 
-<div id="instrucorLogin"></div>
+<div id="instructorLogin"></div>
 
 ## [POST] Login For User
 
