@@ -1,4 +1,4 @@
-## API Documentation
+# API Documentation
 <div id="top"></div>
 
 **BASE URL**  https://how2s.herokuapp.com
@@ -6,7 +6,9 @@
 - Attach endpoints to the end of the base URL in order to make HTTP Requests.
 
 
-### Table of Contents
+## Table of Contents
+
+## User and Instructor registration and login
 Endpoints that do _**not**_ require authentication (Not Protected):
 
 | Requests        | Endpoints          | Description
@@ -16,15 +18,17 @@ Endpoints that do _**not**_ require authentication (Not Protected):
 |<a href="#instructorRegister">POST Instructors Registration</a>  | /api/instructors/register | <b>POST</b> request to register new instructor
 |<a href="#instructorLogin">POST Instructors Login</a>            | /api/instructors/login|  <b>POST</b> request to login new instructor
 
-### Instructor Endpoints
+# Instructor Endpoints
 | Requests        | Endpoints          | Description
 |-----------------|--------------------|--------------------|
-|<a href="#getTutorialById">POST Users Registration</a>  | /api/tutorials/:id | <b>GET</b> request to retrieve all turoials by instructor_id
+|<a href="#getTutorialById">GET tutorials by instructor_id</a>  | /api/tutorials/:id | <b>GET</b> request to retrieve all turoials by instructor_id
+|<a href="#getdirectionsByTId">GET tutorials directions by way of tutorial_id </a>  | /api/tutorials/:id/directions | <b>GET</b> request to retrieve all directions for a tutorial by tutorial_id
 
-### User Endpoints 
+
+# User Endpoints 
 | Requests        | Endpoints          | Description
 |-----------------|--------------------|--------------------|
-|<a href="#getAllTutorials">get All tutorials</a>  | /api/tutorials | <b>GET</b> request to retrieve all turoials
+|<a href="#getAllTutorials">GET All tutorials</a>  | /api/tutorials | <b>GET</b> request to retrieve all turoials orderd by likes highest to lowest
 
 
 <hr />
@@ -59,10 +63,8 @@ _You will receive the user object an a JWT._
 
 ```js
 {
-{
-  "username": "carly",
-  "password": "$2a$08$/TmNnEfYC6vq.3ysLGM0feEGFBjfQGULxL8B/oIkZW9eTdUrtzKga"
-}
+  "message": "Welcome carly! Here is a token...",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0IjoxMCwidXNlcm5hbWUiOiJ0ZXN0aW5nYWdhaW4yIiwicm9sZSI6Imluc3RydWN0b3IiLCJpYXQiOjE1ODgxMDA1MjUsImV4cCI6MTU4ODE4NjkyNX0.eyJ5s4hb8__nG1YSLBEa6cX0tyacbmWv6o9p-ezJmd0"
 }
 ```
 
@@ -186,7 +188,7 @@ _You will receive the user object an a JWT._
 <div id="getTutorialById"></div>
 <a href="#top">Return to the top</a>
 
-URL: https://how2s.herokuapp.com/api/tutorials/id
+URL: https://how2s.herokuapp.com/api/tutorials/:id
 
 ### Request body should include: 
 No request body needed
@@ -233,28 +235,52 @@ _You will receive an array of all tutorials
 ```js
 [
   {
-    "username": "Jasmine",
-    "tutorial_id": 1,
+    "id": 7,
+    "title": "how to do a specific thing",
+    "summary": "sooo spacific it doesnt get a proper summary wait what.",
+    "likes": 5,
+    "instructor_id": 3
+  },
+  {
+    "id": 1,
     "title": "How to make a pb&j",
-    "summary": "you should be able to make a pb&j after these important steps."
+    "summary": "you should be able to make a pb&j after these important steps.",
+    "likes": 2,
+    "instructor_id": 1
   },
   {
-    "username": "Jasmine",
-    "tutorial_id": 6,
-    "title": "How to make a toast",
-    "summary": "toast will be made today."
-  },
-    {
-    "username": "Ashley",
-    "tutorial_id": 3,
-    "title": "How to count to 3",
-    "summary": "to summarize we will end at three see the steps for more info."
+    "id": 2,
+    "title": "How to make code",
+    "summary": "im not acutally gunna teach you that lets just cry instead.",
+    "likes": 2,
+    "instructor_id": 3
+  }
+]
+```
+## [GET] Get All tutorials
+
+<div id="#getdirectionsByTId"></div>
+<a href="#top">Return to the top</a>
+
+URL: https://how2s.herokuapp.com/api/tutorials/:id
+
+### Request body should include: 
+No request body needed
+
+
+### What will be returned:
+
+_You will receive an array of all directions for that tutorial by tutorial_id this is an example for seeded tutorial with id of 4
+
+```js
+[
+  {
+    "step_number": 1,
+    "instructions": "stand near open shoes"
   },
   {
-    "username": "Ashley",
-    "tutorial_id": 8,
-    "title": "How to count to 4",
-    "summary": "this instructor is like sooo  helpful glad to have you on board Ash."
+    "step_number": 2,
+    "instructions": "jump into shoes"
   }
 ]
 ```

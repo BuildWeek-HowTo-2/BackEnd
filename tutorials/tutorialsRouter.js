@@ -30,5 +30,21 @@ router.get('/:id', (req, res) => {
     });
   })
 
+router.get('/:id/directions', (req, res) => {
+  const { id } = req.params; 
+  tutorials
+    .getDirectionsById(id)
+    .then(directions => {
+      if (directions) {
+        res.status(200).json(directions)
+      } else {
+        res.status(401).json({errMessage: 'no tutorials found by that instructor_id'})
+      }
+    })
+    .catch((err) => {
+      errorHandler(res, err, 500, 'Unable to retrieve tutorials');
+    });
+  })
+
 
 module.exports = router;
