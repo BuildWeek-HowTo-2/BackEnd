@@ -24,6 +24,45 @@ router.post("/", validateLikeShape, validateLikeExistingPost,(req, res, next) =>
 })
    
 
+router.get("/", (req, res) => {
+    likes.getlikesTest()
+    .then((likes) => {
+      if (!likes.length) {
+        res
+          .status(404)
+          .json({ message: "No likes were found in the database." });
+      } else {
+        res.json(likes);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
+
+router.get("/:id", (req, res) => {
+  const {id} = req.params.id
+  likes.getlikesById(id)
+  .then((likes) => {
+    if (!likes.length) {
+      res
+        .status(404)
+        .json({ message: "No likes were found in the database." });
+    } else {
+      res.json(likes);
+    }
+  })
+  .catch((err) => {
+    console.log(err);
+    res.status(500).json(err);
+  });
+});
+
+
+module.exports = router;
+
+
 // router.post('/', (req, res) => {
 // 	const likesData = req.body;
 // 	knex('likes')
@@ -61,22 +100,3 @@ router.post("/", validateLikeShape, validateLikeExistingPost,(req, res, next) =>
 //   });
  
 // })
-
-router.get("/", (req, res) => {
-    likes.getlikesTest()
-    .then((likes) => {
-      if (!likes.length) {
-        res
-          .status(404)
-          .json({ message: "No likes were found in the database." });
-      } else {
-        res.json(likes);
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json(err);
-    });
-});
-
-module.exports = router;

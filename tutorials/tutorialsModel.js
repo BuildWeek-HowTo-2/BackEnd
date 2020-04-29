@@ -11,7 +11,10 @@ module.exports = {
   update,
   remove,
   getAllTutorialInfo,
-  // addLike,
+  getWithLike,
+  getWithSteps,
+  find,
+  findTutorialSteps
 }
 
 function get() {
@@ -31,7 +34,7 @@ function getTutorialById(id) {
 
 function findById(id) {
   return db('tutorials as t')
-    .select('i.username','t.id as tutorial_id', 't.title', 't.summary')
+    .select('i.username','t.id ', 't.title', 't.summary', 't.likes',)
     .join('instructors as i', 't.instructor_id', 'i.id')
     .where('i.id', id)   
 }
@@ -69,11 +72,56 @@ function remove(id) {
 // }
 
 function getAllTutorialInfo() {
-  return  db('tutorial_directions as td')
+  return  db('likes as')
   .select('t.id', 't.title', 't.summary', 't.likes', 'td.step_number', 'td.instructions')
   .join('tutorials as t', 't.id', 'tutorial_id')
 }
+function getWithLike() {
+  return db('likes as l')
+  .select('l.tutorial_id', 't.title', 't.summary', 'count('*') as likes')
+  .join('tutorials as t', 'l.tutorial_id', 't.id')
+}
 
-//  function addLike(tutorial) {
-//   const tutorial = tutorial.likes + 1
-//  }
+function getWithSteps() {
+  return db('tutorials as t')
+    .select('t.id', 't.title', 't.summary', 't.likes')
+    .first()
+    .then(tutorial => {
+        return db('tutorial_directions as td')
+            .where('td.tutorial_id', 'tutorial.id')
+            .select('td.step_number', 'td.instructions')
+            .then(steps => {
+                return {
+                    ...tutorial,
+                    steps
+                }
+            })
+    })
+}
+async function find() {
+	const id = db('tutorials').select('id').orderBy('id')
+	const arrId = id.map(id => { return id.id });
+	return await arrId.map(id => findTutorialSteps(id))
+}
+async function findTutorialSteps(id) {
+	const user = await findById(id)
+	if(user == undefined){
+		return
+	} else {
+		return db('tutorials')
+			.where('id', id)
+			.select('id', 'title')
+			.first()
+			.then(tutorials => {
+				return db('tutorial_instructions as ti')
+					.where('ti.tutorial_id', id)
+					.select('ti.step_number', 'ti.step_instructions')
+					.then(steps => {
+						return {
+							...tutorials,
+							steps
+						}
+					})
+			})
+	}
+}

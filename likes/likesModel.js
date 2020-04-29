@@ -44,3 +44,12 @@ return db('likes')
   .orderBy('likes', 'desc')
 
 }
+function getlikesTest() {
+return db('likes')
+  .select(db.raw('count(*) as likes, tutorial_id'))
+  .where(db.raw(1))
+  .orWhere(db.raw('tutorial_id <> ?', [1]))
+  .groupBy('tutorial_id')
+  .orderBy('likes', 'desc')
+
+}
