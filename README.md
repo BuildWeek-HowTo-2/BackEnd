@@ -21,6 +21,7 @@ Endpoints that do _**not**_ require authentication (Not Protected):
 # Instructor Endpoints
 | Requests        | Endpoints          | Description
 |-----------------|--------------------|--------------------|
+|<a href="#getTutorials">GET tutorials</a>  | /api/tutorials/| <b>GET</b> request to retrieve all turoials
 |<a href="#getTutorialById">GET tutorials by instructor_id</a>  | /api/tutorials/:id | <b>GET</b> request to retrieve all turoials by instructor_id
 |<a href="#getdirectionsByTId">GET tutorials directions by way of tutorial_id </a>  | /api/tutorials/:id/directions | <b>GET</b> request to retrieve all directions for a tutorial by tutorial_id
 |<a href="#postTutorial">POST tutorial </a>  | /api/tutorials| <b>POST</b> post tutorial to db
@@ -186,6 +187,49 @@ _You will receive the user object an a JWT._
 
 <hr />
 
+## [GET] Get Tutorials 
+
+<div id="getTutorials"></div>
+<a href="#top">Return to the top</a>
+
+URL: https://how2s.herokuapp.com/api/tutorials
+
+### Request body should include: 
+No request body needed
+
+
+### What will be returned:
+
+_You will receive an array of tutorials by that instructor's ID
+
+```js
+[
+  {
+    "id": 7,
+    "title": "how to do a specific thing",
+    "summary": "sooo spacific it doesnt get a proper summary wait what.",
+    "likes": 5,
+    "instructor_id": 3
+  },
+  {
+    "id": 1,
+    "title": "How to make a pb&j",
+    "summary": "you should be able to make a pb&j after these important steps.",
+    "likes": 2,
+    "instructor_id": 1
+  },
+  {
+    "id": 2,
+    "title": "How to make code",
+    "summary": "im not acutally gunna teach you that lets just cry instead.",
+    "likes": 2,
+    "instructor_id": 3
+  }
+]
+```
+
+<hr />
+
 ## [GET] Get Tutorials by ID
 
 <div id="getTutorialById"></div>
@@ -204,17 +248,19 @@ _You will receive an array of tutorials by that instructor's ID
 ```js
 [
   {
-    "username": "Jasmine",
-    "tutorial_id": 1,
-    "title": "How to make a pb&j",
-    "summary": "you should be able to make a pb&j after these important steps."
+    "username": "Ashley",
+    "id": 3,
+    "title": "How to count to 3",
+    "summary": "to summarize we will end at three see the steps for more info.",
+    "likes": 2
   },
   {
-    "username": "Jasmine",
-    "tutorial_id": 6,
-    "title": "How to make a toast",
-    "summary": "toast will be made today."
-  }
+    "username": "Ashley",
+    "id": 8,
+    "title": "How to count to 4",
+    "summary": "this instructor is like sooo  helpful glad to have you on board Ash.",
+    "likes": 2
+  },
 ]
 ```
 
