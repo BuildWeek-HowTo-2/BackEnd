@@ -15,3 +15,15 @@ where l.tutorial_id = 4
 SELECT Count('*') from likes as l
 join tutorials as t on t.id = l.tutorial_id
 where l.tutorial_id = 4
+
+SELECT t.id, t.title, t.summary, t.likes, td.step_number, td.instructions
+FROM tutorial_directions as td
+JOIN tutorials as t 
+on t.id = td.tutorial_id
+where t.id = 4
+
+
+
+SELECT Count('DISTINCT') from likes as l
+join tutorials as t on t.id = l.tutorial_id
+Group BY t.id

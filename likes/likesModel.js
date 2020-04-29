@@ -4,15 +4,21 @@ const tutorials = require('../tutorials/tutorialsModel')
 module.exports = {
   insertLike,
   update,
-  getLikesById
+  getLikesById,
+  findBy,
 
 }
 
 async function insertLike(like)  {
   await db('likes').insert(like)
 
-  return tutorials.findById({ id: like.tutorial_id})
+  return tutorials.findById(id).where('likes.tutorial_id', id)
 }
+function findBy(filter) {
+  return db("likes")
+    .where(filter)
+    .first();
+};
 
 function update(id, like){
     return db('likes')

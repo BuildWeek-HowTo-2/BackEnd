@@ -77,6 +77,23 @@ router.delete('/:id', (req, res) => {
   })
 })
 
+
+router.get('/allinfo', (req, res) => {
+
+  tutorials
+    .getAllTutorialInfo()
+    .then(tutorials => {
+      console.log(tutorials)
+      if (tutorials) {
+        res.status(200).json(tutorials)
+      } else {
+        res.status(401).json({errMessage: 'no tutorials found by that instructor_id'})
+      }
+    })
+    .catch((err) => {
+      errorHandler(res, err, 500, 'Unable to retrieve tutorials');
+    });
+  })
 // router.get('/', (req, res) => {
 //   tutorials.get()
 //   .then((tutorials) => {

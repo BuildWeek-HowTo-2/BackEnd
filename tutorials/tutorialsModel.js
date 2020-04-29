@@ -9,7 +9,8 @@ module.exports = {
   insert,
   getTutorialById,
   update,
-  remove
+  remove,
+  getAllTutorialInfo
 }
 
 function get() {
@@ -26,7 +27,6 @@ function getById(id) {
 function getTutorialById(id) {
   return db('tutorials').where({ id }).select('id', 'title','summary', 'likes').first();
 }
-
 
 function findById(id) {
   return db('tutorials as t')
@@ -67,3 +67,9 @@ function remove(id) {
 //   return db('tutorials').where({ id }).update(changes);
 //   return getTutorialById(id); 
 // }
+
+function getAllTutorialInfo() {
+  return  db('tutorial_directions as td')
+  .select('t.id', 't.title', 't.summary', 't.likes', 'td.step_number', 'td.instructions')
+  .join('tutorials as t', 't.id', 'tutorial_id')
+}
