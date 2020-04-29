@@ -1,4 +1,4 @@
-
+ []
 const router = require('express').Router();
 
 const tutorials = require('./tutorialsModel');
@@ -67,6 +67,13 @@ router.put('/:id', (req, res) => {
         res.status(200).json(post)
       })
     }
+  })
+})
+
+router.delete('/:id', (req, res) => {
+  tutorials.remove(req.params.id)
+  .then(removed => {
+    res.status(200).json(`message: you just liked this tutorial`)
   })
 })
 

@@ -8,7 +8,8 @@ module.exports = {
   getDirectionsById,
   insert,
   getTutorialById,
-  update
+  update,
+  remove
 }
 
 function get() {
@@ -46,13 +47,22 @@ async function insert(tutorial){
   const [id] = await db('tutorials').insert(tutorial,'id');
   return getTutorialById(id);
 }
-
+// function update(filter, changes)  {
+//   return db("tutorials")
+//     .where(filter)
+//     .update(changes)
+//     .then((count) => (count > 0 ? findBy(filter) : null))
+//     .catch((err) => console.log(err));
+// };
 function update(id, post) {
   return db('tutorials')
     .where('id', Number(id))
     .update(post);    
 }
 
+function remove(id) {
+  return db('tutorials').where({ id }).del();
+}
 // function update(changes, id) {
 //   return db('tutorials').where({ id }).update(changes);
 //   return getTutorialById(id); 

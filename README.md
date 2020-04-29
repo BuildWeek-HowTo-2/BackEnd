@@ -24,7 +24,8 @@ Endpoints that do _**not**_ require authentication (Not Protected):
 |<a href="#getTutorialById">GET tutorials by instructor_id</a>  | /api/tutorials/:id | <b>GET</b> request to retrieve all turoials by instructor_id
 |<a href="#getdirectionsByTId">GET tutorials directions by way of tutorial_id </a>  | /api/tutorials/:id/directions | <b>GET</b> request to retrieve all directions for a tutorial by tutorial_id
 |<a href="#postTutorial">POST tutorial </a>  | /api/tutorials| <b>POST</b> post tutorial to db
-|<a href="#putTutorial">PUT tutorial </a>  | /api/tutorials/:id| <b>PUT</b> put/ update tutorial to db by tutorial id
+|<a href="#putTutorial">PUT tutorial </a>  | /api/tutorials/:id| <b>PUT</b> put/ update tutorial to db by tutorial_id
+|<a href="#delTutorial">DEL tutorial </a> | /api/tutorials/:id| <b>DEL</b> delete tutorial by tutorial_id
 
 
 # User Endpoints 
@@ -354,4 +355,25 @@ _You will receive an array of all directions for that tutorial by tutorial_id th
   "summary": "superrrrr speceific sumary.",
   "likes": 0
 }
+```
+
+<hr />
+
+## [DELETE] Remove Tutorial
+
+<div id="delTutorial"></div>
+<a href="#top">Return to the top</a>
+
+URL: https://how2s.herokuapp.com/api/tutorials/:id
+
+### Request body should include: 
+
+No request body neccessary
+
+### What will be returned:
+
+_You will receive an array of all directions for that tutorial by tutorial_id this is an example for seeded tutorial with id of 4
+
+```js
+"message: you just killed 1 tutorial mourn them you animal"
 ```
