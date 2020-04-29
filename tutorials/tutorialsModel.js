@@ -10,7 +10,8 @@ module.exports = {
   getTutorialById,
   update,
   remove,
-  getAllTutorialInfo
+  getAllTutorialInfo,
+  // addLike,
 }
 
 function get() {
@@ -32,8 +33,7 @@ function findById(id) {
   return db('tutorials as t')
     .select('i.username','t.id as tutorial_id', 't.title', 't.summary')
     .join('instructors as i', 't.instructor_id', 'i.id')
-    .where('i.id', id)
-   
+    .where('i.id', id)   
 }
 
 function getDirectionsById(id) {
@@ -73,3 +73,7 @@ function getAllTutorialInfo() {
   .select('t.id', 't.title', 't.summary', 't.likes', 'td.step_number', 'td.instructions')
   .join('tutorials as t', 't.id', 'tutorial_id')
 }
+
+//  function addLike(tutorial) {
+//   const tutorial = tutorial.likes + 1
+//  }

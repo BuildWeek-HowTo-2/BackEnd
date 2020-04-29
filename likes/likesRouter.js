@@ -1,5 +1,5 @@
 const router = require('express').Router();
-
+// const knex = require('../data/dbConfig')
 const likes = require('./likesModel');
 const tutorials = require('../tutorials/tutorialsModel')
 const errorHandler = require('../utils/errorHandler');
@@ -9,30 +9,39 @@ const {
 } = require('../utils/likesMiddleware')
 
 
-router.post("/", validateLikeShape, validateLikeExistingPost,(req, res, next) => {
 
+router.post("/", validateLikeShape, validateLikeExistingPost,(req, res, next) => {
+  const like = req.body
   likes
-    .insertLike(req.body)
+    .insertLike(like)
     .then((tutorial) => {
-      const id = reg.body.tutorial_id
-      tutorials
-      .update(id, { likes: tutorial.likes + 1 })
-        .then((updatedtutorial) => res.status(201).json(updatedtutorial))
-        .catch((err) => {
-          console.log(err);
-          res.status(502).json(err);
-        });
+      console.log(tutorial)
     })
     .catch((err) => {
       console.log(err);
-      res.status(503).json(err);
-    });
-}  
-  
- 
-  
+      res.status(500).json(err);
+});  
+})
    
-);
+
+// router.post('/', (req, res) => {
+// 	const likesData = req.body;
+// 	knex('likes')
+//         .insert(likesData, 'id')
+//         .then(([id]) => id)
+//         .then(id => {
+//             knex('tutorials')
+//             .where({ id })
+//             .first()
+//             .then(idk => {
+//                 res.status(201).json(idk);
+//             });
+//         })
+//         .catch((error) => {
+//             console.log(error);
+//             res.status(500).json({ errorMessage: 'There was an error with POST of that account data' });
+//         });
+// });
 
 
 
@@ -53,8 +62,8 @@ router.post("/", validateLikeShape, validateLikeExistingPost,(req, res, next) =>
  
 // })
 
-router.get("/:id", (req, res) => {
-    likes.getLikesById()
+router.get("/", (req, res) => {
+    likes.getlikesTest()
     .then((likes) => {
       if (!likes.length) {
         res

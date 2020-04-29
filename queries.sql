@@ -27,3 +27,7 @@ where t.id = 4
 SELECT Count('DISTINCT') from likes as l
 join tutorials as t on t.id = l.tutorial_id
 Group BY t.id
+
+
+
+select count(*) as likes, tutorial_id from likes where 1 or tutorial_id <> 1 group by tutorial_id
