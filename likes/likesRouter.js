@@ -15,14 +15,14 @@ router.post("/", validateLikeShape, validateLikeExistingPost,(req, res, next) =>
   likes
     .insertLike(like)
     .then((tutorial) => {
-      console.log(tutorial)
+      res.status(201).json({message: 'you liked this post'})
     })
     .catch((err) => {
       console.log(err);
       res.status(500).json(err);
 });  
 })
-   
+
 
 router.get("/", (req, res) => {
     likes.getlikesTest()

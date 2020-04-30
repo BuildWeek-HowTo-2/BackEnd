@@ -15,7 +15,9 @@ module.exports = {
   getWithSteps,
   find,
   findTutorialSteps,
-  whoCares
+  whoCares,
+  addDirections,
+  updateDirections
 }
 
 function get() {
@@ -51,15 +53,26 @@ async function insert(tutorial){
   const [id] = await db('tutorials').insert(tutorial,'id');
   return getTutorialById(id);
 }
-// function update(filter, changes)  {
-//   return db("tutorials")
-//     .where(filter)
-//     .update(changes)
-//     .then((count) => (count > 0 ? findBy(filter) : null))
-//     .catch((err) => console.log(err));
-// };
+function addDirections(direction, schemeId) {
+  direction.tutorial_id = schemeId;
+  return db('tutorial_directions')
+    .insert(direction, 'id')
+    .then(ids => {
+      const [ id ] = ids;
+      return db('tutorial_directions')
+        .where({ id })
+        .first();
+    });
+}
+
 function update(id, post) {
   return db('tutorials')
+    .where('id', Number(id))
+    .update(post);    
+}
+
+function updateDirections(id, post) {
+  return db('tutorial_directions')
     .where('id', Number(id))
     .update(post);    
 }
@@ -67,10 +80,7 @@ function update(id, post) {
 function remove(id) {
   return db('tutorials').where({ id }).del();
 }
-// function update(changes, id) {
-//   return db('tutorials').where({ id }).update(changes);
-//   return getTutorialById(id); 
-// }
+
 
 function getAllTutorialInfo() {
   return  db('likes as')
@@ -110,7 +120,7 @@ function getWithSteps() {
 }
 async function find() {
 	const id = db('tutorials').select('id').orderBy('id')
-	const arrId = id.map(id => { return Number(id.id) });
+	const arrId = id.map(id => { return id.id });
 	return await arrId.map(id => findTutorialSteps(id))
 }
 async function findTutorialSteps(id) {
@@ -135,3 +145,16 @@ async function findTutorialSteps(id) {
 			})
 	}
 }
+
+// function update(filter, changes)  {
+//   return db("tutorials")
+//     .where(filter)
+//     .update(changes)
+//     .then((count) => (count > 0 ? findBy(filter) : null))
+//     .catch((err) => console.log(err));
+// };
+
+// function update(changes, id) {
+//   return db('tutorials').where({ id }).update(changes);
+//   return getTutorialById(id); 
+// }
