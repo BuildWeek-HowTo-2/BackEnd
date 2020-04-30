@@ -14,9 +14,19 @@ router.get('/', (req, res) => {
   });
 });
 
+router.get('/idk', (req, res) => {
+  tutorials.find()
+  .then((tutorials) => {
+    res.status(200).json(tutorials)
+  })
+  .catch((err) => {
+    errorHandler(res, err, 500, 'Unable to retrieve tutorials');
+  });
+});
 
 router.get('/withsteps', (req, res) => {
   tutorials.getWithSteps()
+  
   .then((tutorials) => {
     res.status(200).json(tutorials)
   })
@@ -57,7 +67,27 @@ router.get('/:id/directions', (req, res) => {
     .catch((err) => {
       errorHandler(res, err, 500, 'Unable to retrieve tutorials');
     });
+})
+
+router.post('/:id/directions', (req, res) => {
+  const directionData = req.body;
+  const { id } = req.params; 
+
+  tutorials.findById(id)
+  .then(direction=> {
+    if (direction) {
+      tutorials.addDirections(directionData, id)
+      .then(directions => {
+        res.status(201).json(directions);
+      })
+    } else {
+      res.status(404).json({ message: 'Could not find scheme with given id.' })
+    }
   })
+  .catch (err => {
+    res.status(500).json({ message: 'Failed to create new step' });
+  });
+});
 
 router.post('/', (req, res) => {
   const tutorialData =  req.body;
@@ -81,6 +111,48 @@ router.put('/:id', (req, res) => {
     }
   })
 })
+
+router.put('/:id/directions', (req, res) => {
+  const { id } = req.params; 
+  
+  tutorials.getDirectionsById(id)
+  .then(direction=> {
+    console.log(direction)
+    if (direction) {
+      const directionData = req.body;
+      console.log(directionData)
+      tutorials.updateDirections(directionData, id)
+      .then(directions => {
+        console.log(directions)
+        res.status(201).json(directions);
+      })
+      .catch (err => {
+        res.status(200).json({ message: 'its a catch but its fucking adding it idk' });
+      }); 
+    } else {
+      res.status(404).json({ message: 'Could not find scheme with given id.' })
+    }
+    
+  })
+  .catch (err => {
+    res.status(500).json({ message: 'Failed to create new step' });
+  });
+});
+
+
+// router.put('/:id/directions', (req, res) => {
+//   const directionData = req.body;
+//   const { id } = req.params;
+//   tutorials.update(id, tutorialData)
+//   .then((count) => {
+//     if (count > 0) {
+//       tutorials.getTutorialById(id)
+//       .then((post) => {
+//         res.status(200).json(post)
+//       })
+//     }
+//   })
+// })
 
 router.delete('/:id', (req, res) => {
   tutorials.remove(req.params.id)

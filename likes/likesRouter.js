@@ -16,13 +16,31 @@ router.post("/", validateLikeShape, validateLikeExistingPost,(req, res, next) =>
     .insertLike(like)
     .then((tutorial) => {
       console.log(tutorial)
+      res.status(201).json({message: 'you liked this post'})
     })
     .catch((err) => {
       console.log(err);
       res.status(500).json(err);
 });  
 })
-   
+
+
+// router.post("/", validateLikeShape, validateLikeExistingPost,(req, res, next) => {
+//   const like = req.body
+//   likes
+//     .insertLike(like)
+    
+//     .then(tutorial => {
+//       tutorials.getById(req.body.tutorial_id)
+//       console.log(tutorial)
+     
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//       res.status(500).json(err);
+// });  
+// })
+
 
 router.get("/", (req, res) => {
     likes.getlikesTest()

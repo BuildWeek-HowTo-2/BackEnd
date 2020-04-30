@@ -12,9 +12,13 @@ router.post('/register', validateUser, (req, res) => {
   userData.password = hash;
   Users.insert(userData)
   .then(saved => {
-    console.log('saved user data on insert',saved)
-    res.status(201).json(userData)
+    const token = generateToken(saved);
+    res.status(200).json({
+      ...saved,
+      message: `Welcome ${saved.username}! Here is a token...`,
+      token
   })
+})
   .catch((err) => {
     res.status(500).json(err)
   })
@@ -30,9 +34,10 @@ router.post('/login', (req, res) => {
       const token = generateToken(user);
       console.log("TOKEN", token)
       res.status(200).json({
-          message: `Welcome ${user.username}! Here is a token...`,
-          token
-      });
+        ...saved,
+        message: `Welcome ${saved.username}! Here is a token...`,
+        token
+    })
     } else {
     res.status(401).json({ message: 'Invalid Credentials' });
     }

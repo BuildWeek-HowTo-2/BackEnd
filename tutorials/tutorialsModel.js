@@ -14,7 +14,10 @@ module.exports = {
   getWithLike,
   getWithSteps,
   find,
-  findTutorialSteps
+  findTutorialSteps,
+  whoCares,
+  addDirections,
+  updateDirections
 }
 
 function get() {
@@ -50,15 +53,26 @@ async function insert(tutorial){
   const [id] = await db('tutorials').insert(tutorial,'id');
   return getTutorialById(id);
 }
-// function update(filter, changes)  {
-//   return db("tutorials")
-//     .where(filter)
-//     .update(changes)
-//     .then((count) => (count > 0 ? findBy(filter) : null))
-//     .catch((err) => console.log(err));
-// };
+function addDirections(direction, schemeId) {
+  direction.tutorial_id = schemeId;
+  return db('tutorial_directions')
+    .insert(direction, 'id')
+    .then(ids => {
+      const [ id ] = ids;
+      return db('tutorial_directions')
+        .where({ id })
+        .first();
+    });
+}
+
 function update(id, post) {
   return db('tutorials')
+    .where('id', Number(id))
+    .update(post);    
+}
+
+function updateDirections(id, post) {
+  return db('tutorial_directions')
     .where('id', Number(id))
     .update(post);    
 }
@@ -66,10 +80,7 @@ function update(id, post) {
 function remove(id) {
   return db('tutorials').where({ id }).del();
 }
-// function update(changes, id) {
-//   return db('tutorials').where({ id }).update(changes);
-//   return getTutorialById(id); 
-// }
+
 
 function getAllTutorialInfo() {
   return  db('likes as')
@@ -82,17 +93,26 @@ function getWithLike() {
   .join('tutorials as t', 'l.tutorial_id', 't.id')
 }
 
+function whoCares() {
+  return db('likes')
+  .join('tutorials as t', 'likes.tutorial_id', 't.id')
+  .select('*').count()
+  .where('likes.tutorial_id', 't.tutorial_id')
+  
+}
+
 function getWithSteps() {
   return db('tutorials as t')
     .select('t.id', 't.title', 't.summary', 't.likes')
-    .first()
     .then(tutorial => {
         return db('tutorial_directions as td')
-            .where('td.tutorial_id', 'tutorial.id')
-            .select('td.step_number', 'td.instructions')
+          .select('td.step_number', 'td.instructions')
+          .where('td.tutorial_id', 't.id')
+           
             .then(steps => {
+              console.log(tutorial)
                 return {
-                    ...tutorial,
+                    tutorial,
                     steps
                 }
             })
@@ -113,9 +133,9 @@ async function findTutorialSteps(id) {
 			.select('id', 'title')
 			.first()
 			.then(tutorials => {
-				return db('tutorial_instructions as ti')
-					.where('ti.tutorial_id', id)
-					.select('ti.step_number', 'ti.step_instructions')
+				return db('tutorial_directions as td')
+					.where('td.tutorial_id', id)
+					.select('td.step_number', 'td.step_instructions')
 					.then(steps => {
 						return {
 							...tutorials,
@@ -125,3 +145,16 @@ async function findTutorialSteps(id) {
 			})
 	}
 }
+
+// function update(filter, changes)  {
+//   return db("tutorials")
+//     .where(filter)
+//     .update(changes)
+//     .then((count) => (count > 0 ? findBy(filter) : null))
+//     .catch((err) => console.log(err));
+// };
+
+// function update(changes, id) {
+//   return db('tutorials').where({ id }).update(changes);
+//   return getTutorialById(id); 
+// }
