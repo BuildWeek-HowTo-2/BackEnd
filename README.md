@@ -68,8 +68,10 @@ _You will receive the user object an a JWT._
 
 ```js
 {
+  "id": 11,
+  "username": "carly",
   "message": "Welcome carly! Here is a token...",
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0IjoxMCwidXNlcm5hbWUiOiJ0ZXN0aW5nYWdhaW4yIiwicm9sZSI6Imluc3RydWN0b3IiLCJpYXQiOjE1ODgxMDA1MjUsImV4cCI6MTU4ODE4NjkyNX0.eyJ5s4hb8__nG1YSLBEa6cX0tyacbmWv6o9p-ezJmd0"
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0IjoxMSwidXNlcm5hbWUiOiJ0ZXN0aW5nNSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNTg4MjY3MTQ2LCJleHAiOjE1ODgzNTM1NDZ9.7dTNk8VH5oPrCRaIUhGcfmRc-6iVWaw3CA4qlH0r0cM"
 }
 ```
 
@@ -105,8 +107,10 @@ _You will receive the user object an a JWT._
 
 ```js
 {
+  "id": 11,
+  "username": "carly",
   "message": "Welcome carly! Here is a token...",
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0Ijo1LCJ1c2VybmFtZSI6Im5ldyBhZ2FpbiIsInJvbGUiOiJpbnN0cnVjdG9yIiwiaWF0IjoxNTg4MDE5NTI0LCJleHAiOjE1ODgxMDU5MjR9.cjMPI4lJMkhWcC3ad2Vue1X_3_J9v-60uA5aVD4XDlw"
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0IjoxMSwidXNlcm5hbWUiOiJ0ZXN0aW5nNSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNTg4MjY3MTQ2LCJleHAiOjE1ODgzNTM1NDZ9.7dTNk8VH5oPrCRaIUhGcfmRc-6iVWaw3CA4qlH0r0cM"
 }
 ```
 
@@ -141,12 +145,14 @@ _An example of how the body should appear:_
 _You will receive the user object an a JWT._
 
 ```js
+
 {
-{
+  "id": 11,
   "username": "carly",
-  "password": "$2a$08$/TmNnEfYC6vq.3ysLGM0feEGFBjfQGULxL8B/oIkZW9eTdUrtzKga"
+  "message": "Welcome carly! Here is a token...",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0IjoxMSwidXNlcm5hbWUiOiJ0ZXN0aW5nNSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNTg4MjY3MTQ2LCJleHAiOjE1ODgzNTM1NDZ9.7dTNk8VH5oPrCRaIUhGcfmRc-6iVWaw3CA4qlH0r0cM"
 }
-}
+
 ```
 
 <hr />
@@ -181,8 +187,10 @@ _You will receive the user object an a JWT._
 
 ```js
 {
+  "id": 11,
+  "username": "carly",
   "message": "Welcome carly! Here is a token...",
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0Ijo1LCJ1c2VybmFtZSI6Im5ldyBhZ2FpbiIsInJvbGUiOiJpbnN0cnVjdG9yIiwiaWF0IjoxNTg4MDE5NTI0LCJleHAiOjE1ODgxMDU5MjR9.cjMPI4lJMkhWcC3ad2Vue1X_3_J9v-60uA5aVD4XDlw"
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0IjoxMSwidXNlcm5hbWUiOiJ0ZXN0aW5nNSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNTg4MjY3MTQ2LCJleHAiOjE1ODgzNTM1NDZ9.7dTNk8VH5oPrCRaIUhGcfmRc-6iVWaw3CA4qlH0r0cM"
 }
 ```
 
@@ -376,7 +384,7 @@ _You will receive an array of all directions for that tutorial by tutorial_id th
 
 ## [POST] POST tutorial directions
 
-<div id="postTutorial"></div>
+<div id="postTutorialDirections"></div>
 <a href="#top">Return to the top</a>
 
 URL: https://how2s.herokuapp.com/api/tutorials/:id/directions

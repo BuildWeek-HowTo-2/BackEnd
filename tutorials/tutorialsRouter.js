@@ -113,9 +113,8 @@ router.put('/:id', (req, res) => {
 })
 
 router.put('/:id/directions', (req, res) => {
- 
   const { id } = req.params; 
-
+  
   tutorials.getDirectionsById(id)
   .then(direction=> {
     console.log(direction)
@@ -124,11 +123,12 @@ router.put('/:id/directions', (req, res) => {
       console.log(directionData)
       tutorials.updateDirections(directionData, id)
       .then(directions => {
+        console.log(directions)
         res.status(201).json(directions);
-      })  
-        
-        res.status(200).json({ message: 'this is a catch block but it worked idk' });
-
+      })
+      .catch (err => {
+        res.status(200).json({ message: 'its a catch but its fucking adding it idk' });
+      }); 
     } else {
       res.status(404).json({ message: 'Could not find scheme with given id.' })
     }
