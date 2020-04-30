@@ -101,3 +101,15 @@ on l.tutorial_id = t.id
 join tutorial_directions as td on td.tutorial_id = t.id
 group by t.id
 order by likes desc
+
+
+
+select Distinct l.tutorial_id, t.title, t.summary, count(*) 
+as likes, td.step_number, td.instructions
+from likes as l
+join tutorials as t 
+on l.tutorial_id = t.id
+join tutorial_directions as td on td.tutorial_id = t.id
+group by t.id, td.id
+order by likes desc
+

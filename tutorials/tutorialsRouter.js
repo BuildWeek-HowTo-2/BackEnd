@@ -14,9 +14,19 @@ router.get('/', (req, res) => {
   });
 });
 
+router.get('/idk', (req, res) => {
+  tutorials.find()
+  .then((tutorials) => {
+    res.status(200).json(tutorials)
+  })
+  .catch((err) => {
+    errorHandler(res, err, 500, 'Unable to retrieve tutorials');
+  });
+});
 
 router.get('/withsteps', (req, res) => {
   tutorials.getWithSteps()
+  
   .then((tutorials) => {
     res.status(200).json(tutorials)
   })

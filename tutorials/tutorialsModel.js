@@ -14,7 +14,8 @@ module.exports = {
   getWithLike,
   getWithSteps,
   find,
-  findTutorialSteps
+  findTutorialSteps,
+  whoCares
 }
 
 function get() {
@@ -82,17 +83,26 @@ function getWithLike() {
   .join('tutorials as t', 'l.tutorial_id', 't.id')
 }
 
+function whoCares() {
+  return db('likes')
+  .join('tutorials as t', 'likes.tutorial_id', 't.id')
+  .select('*').count()
+  .where('likes.tutorial_id', 't.tutorial_id')
+  
+}
+
 function getWithSteps() {
   return db('tutorials as t')
     .select('t.id', 't.title', 't.summary', 't.likes')
-    .first()
     .then(tutorial => {
         return db('tutorial_directions as td')
-            .where('td.tutorial_id', 'tutorial.id')
-            .select('td.step_number', 'td.instructions')
+          .select('td.step_number', 'td.instructions')
+          .where('td.tutorial_id', 't.id')
+           
             .then(steps => {
+              console.log(tutorial)
                 return {
-                    ...tutorial,
+                    tutorial,
                     steps
                 }
             })
@@ -100,7 +110,7 @@ function getWithSteps() {
 }
 async function find() {
 	const id = db('tutorials').select('id').orderBy('id')
-	const arrId = id.map(id => { return id.id });
+	const arrId = id.map(id => { return Number(id.id) });
 	return await arrId.map(id => findTutorialSteps(id))
 }
 async function findTutorialSteps(id) {
@@ -113,9 +123,9 @@ async function findTutorialSteps(id) {
 			.select('id', 'title')
 			.first()
 			.then(tutorials => {
-				return db('tutorial_instructions as ti')
-					.where('ti.tutorial_id', id)
-					.select('ti.step_number', 'ti.step_instructions')
+				return db('tutorial_directions as td')
+					.where('td.tutorial_id', id)
+					.select('td.step_number', 'td.step_instructions')
 					.then(steps => {
 						return {
 							...tutorials,
