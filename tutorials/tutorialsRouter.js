@@ -115,19 +115,19 @@ router.put('/:id', (req, res) => {
 router.put('/:id/directions', (req, res) => {
   const { id } = req.params; 
   
-  tutorials.getDirectionsById(id)
+  tutorials.getTutorialById(id)
   .then(direction=> {
-    console.log(direction)
+    console.log('d',direction)
     if (direction) {
       const directionData = req.body;
-      console.log(directionData)
+      console.log('dd',directionData)
       tutorials.updateDirections(directionData, id)
       .then(directions => {
-        console.log(directions)
+        console.log('directions',directions)
         res.status(201).json(directions);
       })
       .catch (err => {
-        res.status(200).json({ message: 'its a catch but its fucking adding it idk' });
+        res.status(200).json({ directionData });
       }); 
     } else {
       res.status(404).json({ message: 'Could not find scheme with given id.' })
@@ -157,7 +157,7 @@ router.put('/:id/directions', (req, res) => {
 router.delete('/:id', (req, res) => {
   tutorials.remove(req.params.id)
   .then(removed => {
-    res.status(200).json(`message: you just liked this tutorial`)
+    res.status(200).json(`you just deleted a tutorial mourn it`)
   })
 })
 
